@@ -12,7 +12,7 @@ var app = express();
 app.use('/', indexRouter);
 
 //sw Tool 조회
-app.use("/api/Swtool", swtoolRouter);
+app.use("/api/Swtool", swtoolRouter);  
 
 //파일 업로드
 app.use("/api/upload", fileuploadRouter);
