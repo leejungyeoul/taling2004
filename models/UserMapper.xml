@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">  
+  <select id="selectUser">
+    SELECT 
+      usercode
+      , username
+      , useremail
+      , userpassword
+      , usermajor
+      , userphone
+      , reg_date
+      , reg_user
+      , update_date
+      , update_user
+    FROM
+    rtrod.rtrod_user
+    <if test="is_Username != null && is_Username != ''">
+      WHERE username = #{is_Username}
+    </if>
+  </select>
+
+  <insert id="insertUser"> 
+    INSERT INTO rtrod.rtrod_user
+    (
+      username
+      , userorg
+      , useremail
+      , userpassword
+      , usermajor
+      , userphone
+      , userflag
+      , reg_date
+      , reg_user
+      , update_date
+      , update_user
+    )
+    VALUES (
+      #{is_Username}
+      , #{is_Organization}
+      , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+      , #{is_Password}
+      , #{is_Usermajor}
+      , CONCAT(#{is_Userphone1}, '-', #{is_Userphone2},'-', #{is_Userphone3})
+      , 'Y'
+      , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+      , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+      , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+      , CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+      )
+  </insert>
+
+  <select id="selectUserDpliCheck">
+      SELECT 
+        count(*) as num
+      FROM
+      rtrod.rtrod_user
+      <if test="is_Email != null && is_Email != ''">
+        WHERE useremail = #{is_Email}
+      </if>
+  </select>
+
+  <select id="selectLoginCheck">
+      SELECT 
+      usercode
+      , username
+      , userorg
+      , useremail
+      , userpassword
+      , usermajor
+      , userphone
+      , userflag
+      FROM
+      rtrod.rtrod_user
+        WHERE useremail = #{is_Email}
+  </select>
+
+  <select id="selectLoginResetCheck">
+      SELECT 
+      usercode
+      , username
+      , userorg
+      , useremail
+      , userpassword
+      , usermajor
+      , userphone
+      , userflag
+      FROM
+      rtrod.rtrod_user
+      WHERE useremail = #{is_Email}
+      AND username = #{is_Name}
+  </select>
+
+  <select id="selectEmailResetCheck">
+      SELECT 
+      usercode
+      , username
+      , userorg
+      , useremail
+      , userpassword
+      , usermajor
+      , userphone
+      , userflag
+      FROM
+      rtrod.rtrod_user
+      WHERE useremail = #{is_Email}
+      AND userpassword like CONCAT('%', #{is_Token}, '%')
+  </select>
+
+  <update id="updateUser">
+      UPDATE rtrod.rtrod_user
+      SET
+      username = #{is_Username}
+      , userorg = #{is_Organization}
+      , userpassword = #{is_Password}
+      , usermajor = #{is_Usermajor}
+      , userphone = CONCAT(#{is_Userphone1}, '-', #{is_Userphone2},'-', #{is_Userphone3})
+      , update_date = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+		WHERE useremail = CONCAT(#{is_Useremail1}, '@', #{is_Useremail2})
+	</update>
+
+  <update id="updatePwdUser">
+      UPDATE rtrod.rtrod_user
+      SET
+      userpassword = #{is_Password}
+		WHERE useremail = #{is_Useremail}
+	</update>
+
+</mapper>

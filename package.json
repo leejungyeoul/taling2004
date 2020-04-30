@@ -1,0 +1,32 @@
+{
+  "name": "project202001",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.0.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "fs": "0.0.1-security",
+    "http-errors": "~1.6.3",
+    "ip": "^1.1.5",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "mybatis-mapper": "^0.6.5",
+    "mysql": "^2.18.1",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.6",
+    "save": "^2.4.0"
+  }
+}
